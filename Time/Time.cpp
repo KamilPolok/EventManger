@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <exception>
 #include "Time.hpp"
 
 Time::Time()
@@ -12,9 +14,19 @@ Time::Time(int _hours, int _minutes, int _seconds)
     setTime(_seconds, _minutes, _hours);
 }
 
-bool Time::validate_input(int _input)
+bool Time::isNonNegative(int _num)
 {
-    return _input >= 0;
+    return _num >= 0;
+}
+
+void Time::validateInput(int _input)
+{
+    if (!isNonNegative(_input))
+    {
+        std::ostringstream msg;
+        msg << "Invalid time value: " << _input <<  " .Expected positive number.";
+        throw std::invalid_argument(msg.str());
+    }
 }
 
 void Time::display() const
@@ -39,38 +51,36 @@ unsigned int Time::getHours() const
 
 void Time::setSeconds(int _seconds)
 {
-    if (validate_input(_seconds))
-    {
-        minutes += _seconds / 60;
-        seconds = _seconds % 60;
+    validateInput(_seconds);
 
-        setMinutes(minutes);
-    }
+    minutes += _seconds / 60;
+    seconds = _seconds % 60;
+
+    setMinutes(minutes);
 }
 
 void Time::setMinutes(int _minutes)
 {
-    if (validate_input(_minutes))
-    {
-        hours += _minutes / 60;
-        minutes = _minutes % 60;
-    }
+    validateInput(_minutes);
+    
+    hours += _minutes / 60;
+    minutes = _minutes % 60;
 }
 
 void Time::setHours(int _hours)
 {
-    if (validate_input(_hours))
-    {
-        hours = _hours;
-    }
+    validateInput(_hours);
+
+    hours = _hours;
 }
 
 void Time::setTime(int _seconds, int _minutes, int _hours)
 {
-    if (validate_input(_seconds) && validate_input(_minutes) && validate_input(_hours))
-    {
-        setHours(_hours);
-        setMinutes(_minutes  + _seconds / 60);
-        setSeconds(_seconds % 60);
-    }
+    validateInput(_seconds);
+    validateInput(_minutes);
+    validateInput(_hours);
+
+    setHours(_hours);
+    setMinutes(_minutes + _seconds / 60);
+    setSeconds(_seconds % 60);
 }

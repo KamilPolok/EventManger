@@ -5,7 +5,8 @@ private:
     unsigned short minutes;
     unsigned hours;
 
-    bool validate_input(int);
+    bool isNonNegative(int);
+    void validateInput(int);
 public:
     Time();
     Time(int, int=0, int=0);
