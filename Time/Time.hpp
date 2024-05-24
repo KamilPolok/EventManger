@@ -1,3 +1,5 @@
+#pragma once
+
 class Time
 {
 private:
@@ -8,8 +10,7 @@ private:
     bool isNonNegative(int);
     void validateInput(int);
 public:
-    Time();
-    Time(int, int=0, int=0);
+    Time(int=0, int=0, int=0);
 
     void display() const;
 
@@ -21,4 +22,16 @@ public:
     void setMinutes(int);
     void setHours(int);
     void setTime(int, int=0, int=0);
+
+    Time operator+(const Time&) const;
+
+    Time& operator+=(int);
+    Time& operator+=(const Time&);
+
+    bool operator==(const Time&) const;
+    bool operator!=(const Time&) const;
+    bool operator<(const Time&) const;
+    bool operator<=(const Time&) const;
+    bool operator>(const Time&) const;
+    bool operator>=(const Time&) const;
 };
