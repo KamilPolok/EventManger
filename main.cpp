@@ -6,51 +6,46 @@
 
 int main()
 {
+    Timetable timetable;
+
     try
     {
         Time time1(3666);
         Time time2(1,2,3);
-        Time time3;
+        Time time3(59,59,3);
+        Time time4(6,6,6);
+        Time time5(3666);
 
-        time1.display();
-        time2.display();
-        time3.display();
-
-        time3 = time1 + time2;
-        time3.display();
-
-        time3 = Time(59, 59, 1) + Time(1);
-        time3.display();
-
-        time3 = Time(100) + 145;
-        time3.display();
-
-        time3 += Time(3722);
-        time3.display();
-
-        time3.setTime(3666);
-
-        std::cout << (time1 > time2) << std::endl;
-        std::cout << (time1 < time2) << std::endl;
-        std::cout << (time1 >= time2) << std::endl;
-        std::cout << (time1 <= time2) << std::endl;
-
-        std::cout << (time2 > time1) << std::endl;
-        std::cout << (time2 < time1) << std::endl;
-        std::cout << (time2 >= time1) << std::endl;
-        std::cout << (time2 <= time1) << std::endl;
-
-        std::cout << (time1 == time2) << std::endl;
-        std::cout << (time1 != time2) << std::endl;
-        
-        std::cout << (time1 == time3) << std::endl;
-        std::cout << (time1 != time3) << std::endl;
-        std::cout << (time1 >= time3) << std::endl;
-        std::cout << (time1 <= time3) << std::endl;
-
+        timetable.addEvent(time1);
+        timetable.addEvent(time2);
+        timetable.addEvent(time3);
+        timetable.addEvent(time4);
+        timetable.addEvent(time5);
     }
     catch(const std::invalid_argument& e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
     }
+
+    timetable.display();
+    std::cout << timetable.getEventsCount() << std::endl;
+
+    try
+    {
+        Time& time6 = timetable[2];
+        time6.display();
+        time6 += 60;
+        time6.display();
+        
+    }
+    catch(const std::out_of_range& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr << "Program will terminate" << std::endl;
+    }
+
+    timetable.display();
+
+    Time time7 = timetable.getTotalTime();
+    time7.display();
 }
