@@ -10,6 +10,13 @@ Timetable::Timetable()
 {
 }
 
+Timetable::Timetable(const Timetable& _other)
+    : eventsCount(_other.eventsCount)
+    , events(new Time[eventsCount])
+{
+    std::copy(_other.events, _other.events + eventsCount, events);
+}
+
 Timetable::~Timetable()
 {
     delete[] events;
@@ -73,4 +80,18 @@ size_t Timetable::getEventsCount() const
 Time& Timetable::operator[](ptrdiff_t idx) const
 {
     return getEvent(idx);
+}
+
+Timetable& Timetable::operator=(Timetable _other)
+{
+    swap(*this, _other);
+
+    return *this;
+}
+
+void swap(Timetable& _first, Timetable& _second)
+{
+    using std::swap;
+    swap(_first.eventsCount, _second.eventsCount);
+    swap(_first.events, _second.events);
 }
