@@ -20,7 +20,7 @@ public:
     friend void swap(Timetable&, Timetable&);
 
     Time& getEvent(ptrdiff_t) const;
-    Time getTotalTime();
+    Time getTotalTime() const;
     size_t getEventsCount() const;
 
     Time& operator[](ptrdiff_t) const;

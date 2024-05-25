@@ -26,7 +26,7 @@ void Time::validateInput(int _input)
 
 void Time::display() const
 {
-    std::cout << "Time: " << hours << ":" << minutes << ":" << seconds << std::endl;
+    std::cout  << hours << ":" << minutes << ":" << seconds << std::endl;
 }
 
 unsigned int Time::getSeconds() const

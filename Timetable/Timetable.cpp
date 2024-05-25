@@ -47,7 +47,10 @@ void Timetable::display() const
 {
     std::cout << "-----TIMETABLE-----" << std::endl;
     for (ptrdiff_t idx {0}; idx < eventsCount; ++idx)
+    {
+        std::cout << idx+1 << ". ";
         events[idx].display();
+    }
     std::cout << "-------------------" << std::endl;
 }
 
@@ -63,7 +66,7 @@ Time& Timetable::getEvent(ptrdiff_t idx) const
     return events[idx];
 }
 
-Time Timetable::getTotalTime()
+Time Timetable::getTotalTime() const
 {
     Time totalTime;
     for (ptrdiff_t idx {0}; idx < eventsCount; ++idx)
